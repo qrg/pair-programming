@@ -1,12 +1,7 @@
 'use strict';
 
-const {
-  writeFileSync,
-  mkdirSync
-} = require('fs');
-const {
-  resolve
-} = require('path');
+const { writeFileSync, mkdirSync } = require('fs');
+const { resolve } = require('path');
 
 const ROOT_DIR = resolve(__dirname, '..');
 const DIST_DIR = resolve(ROOT_DIR, 'dist');
@@ -37,14 +32,14 @@ const errors = result.reduce((errors, set) => {
   return [
     ...errors,
     ...set
-    .map(num => {
-      const found = flattenResult.filter(e => e === num);
-      if (found.length === 1) {
-        return null;
-      }
-      return num;
-    })
-    .filter(e => e)
+      .map(num => {
+        const found = flattenResult.filter(e => e === num);
+        if (found.length === 1) {
+          return null;
+        }
+        return num;
+      })
+      .filter(e => e)
   ];
 }, []);
 
@@ -53,4 +48,7 @@ console.log('errors: ', errors);
 mkdirSync(DIST_DIR, {
   recursive: true
 });
-writeFileSync(resolve(DIST_DIR, './result.json'), JSON.stringify(result, null, 2));
+writeFileSync(
+  resolve(DIST_DIR, './result.json'),
+  JSON.stringify(result, null, 2)
+);
